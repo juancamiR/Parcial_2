@@ -6,5 +6,7 @@ module co.edu.uniquindio.techsolutions {
     exports co.edu.uniquindio.techsolutions.model.composite;
     exports co.edu.uniquindio.techsolutions.model.decorator;
     exports co.edu.uniquindio.techsolutions.model.factory;
+    exports co.edu.uniquindio.techsolutions.model.builder;
     exports co.edu.uniquindio.techsolutions.model.adapter;
+    exports co.edu.uniquindio.techsolutions.services;
 }
