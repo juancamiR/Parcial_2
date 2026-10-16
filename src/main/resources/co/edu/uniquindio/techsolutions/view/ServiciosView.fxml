@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox spacing="16" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="co.edu.uniquindio.techsolutions.viewController.ServiciosViewController"
+      style="-fx-padding: 16; -fx-background-color: #f8fafc;">
+
+    <!-- Panel Izquierdo: Creación con Factory y Tabla de Catálogo -->
+    <VBox spacing="12" HBox.hgrow="ALWAYS"
+          style="-fx-background-color: #ffffff; -fx-padding: 16; -fx-background-radius: 8; -fx-border-color: #e2e8f0; -fx-border-radius: 8;">
+        <Label text="Catálogo de Servicios Base (ServicioFactory)"
+               style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
+
+        <GridPane hgap="10" vgap="8">
+            <columnConstraints>
+                <ColumnConstraints minWidth="120" prefWidth="130"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
+
+            <Label text="Tipo de Servicio:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+            <ComboBox fx:id="cmbTipoServicio" maxWidth="Infinity" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Código:" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="txtCodigoServicio" promptText="Ej: SRV-005" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Nombre:" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="txtNombreServicio" promptText="Nombre del servicio tecnológico" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+            <Label text="Descripción:" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="txtDescripcionServicio" promptText="Descripción detallada del servicio" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+            <Label text="Modalidad:" GridPane.rowIndex="4" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+            <CheckBox fx:id="chkPresencialNuevo" text="Requiere atención presencial de base" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+        </GridPane>
+
+        <HBox alignment="CENTER_RIGHT">
+            <Button text="Crear Servicio en Catálogo"
+                    onAction="#onRegistrarServicio"
+                    style="-fx-background-color: #0284c7; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 6;"/>
+        </HBox>
+
+        <Separator/>
+
+        <Label text="Servicios Disponibles en el Catálogo (Seleccione uno para personalizar):"
+               style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+
+        <TableView fx:id="tblCatalogoServicios" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colCatCodigo" text="Código" prefWidth="75"/>
+                <TableColumn fx:id="colCatNombre" text="Nombre" prefWidth="155"/>
+                <TableColumn fx:id="colCatTipo" text="Tipo" prefWidth="140"/>
+                <TableColumn fx:id="colCatDescripcion" text="Descripción" prefWidth="175"/>
+                <TableColumn fx:id="colCatPresencial" text="Presencial" prefWidth="75"/>
+                <TableColumn fx:id="colCatCostoBase" text="Costo Base" prefWidth="90"/>
+            </columns>
+        </TableView>
+    </VBox>
+
+    <!-- Panel Derecho: Personalización con Decorator y Servicios Personalizados -->
+    <VBox spacing="12" prefWidth="460"
+          style="-fx-background-color: #ffffff; -fx-padding: 16; -fx-background-radius: 8; -fx-border-color: #e2e8f0; -fx-border-radius: 8;">
+        <Label text="Personalización con Complementos (Patrón Decorator)"
+               style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
+
+        <VBox spacing="6" style="-fx-background-color: #f1f5f9; -fx-padding: 10; -fx-background-radius: 6;">
+            <Label text="Servicio Base Seleccionado:" style="-fx-font-size: 11px; -fx-text-fill: #64748b;"/>
+            <Label fx:id="lblServicioSeleccionado" text="Seleccione un servicio de la tabla"
+                   wrapText="true" style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
+        </VBox>
+
+        <Label text="Características Complementarias Disponibles:" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+        <VBox spacing="8" style="-fx-padding: 4 0 4 8;">
+            <CheckBox fx:id="chkAtencionPrioritaria" text="Atención Prioritaria (+$35.000)"/>
+            <CheckBox fx:id="chkSoporte30Dias" text="Soporte Técnico durante 30 Días (+$50.000)"/>
+            <CheckBox fx:id="chkAtencionDomicilio" text="Atención a Domicilio (+$25.000 · Activa Atención Presencial)"/>
+        </VBox>
+
+        <GridPane hgap="10" vgap="6" style="-fx-background-color: #ecfdf5; -fx-padding: 12; -fx-background-radius: 6; -fx-border-color: #a7f3d0; -fx-border-radius: 6;">
+            <columnConstraints>
+                <ColumnConstraints minWidth="190"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
+
+            <Label text="Costo Base Original:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <Label fx:id="lblCostoBase" text="0" GridPane.rowIndex="0" GridPane.columnIndex="1" style="-fx-font-weight: bold;"/>
+
+            <Label text="Incremento por Complementos:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <Label fx:id="lblIncrementoComplementos" text="+$0" GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-text-fill: #0369a1; -fx-font-weight: bold;"/>
+
+            <Label text="Requiere Atención Presencial:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <Label fx:id="lblRequierePresencial" text="No" GridPane.rowIndex="2" GridPane.columnIndex="1" style="-fx-font-weight: bold;"/>
+
+            <Label text="Costo Final Personalizado:" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+            <Label fx:id="lblCostoFinal" text="0" GridPane.rowIndex="3" GridPane.columnIndex="1"
+                   style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #047857;"/>
+        </GridPane>
+
+        <Button text="Guardar Servicio Personalizado (Sin alterar Catálogo)"
+                maxWidth="Infinity"
+                onAction="#onGuardarServicioPersonalizado"
+                style="-fx-background-color: #059669; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 9 16; -fx-background-radius: 6;"/>
+
+        <Separator/>
+
+        <Label text="Servicios Personalizados Creados (Disponibles para Paquetes y Solicitudes):"
+               style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+
+        <TableView fx:id="tblServiciosPersonalizados" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colPersCodigo" text="Cód. Base" prefWidth="75"/>
+                <TableColumn fx:id="colPersNombre" text="Servicio Decorado" prefWidth="200"/>
+                <TableColumn fx:id="colPersPresencial" text="Presencial" prefWidth="80"/>
+                <TableColumn fx:id="colPersCostoTotal" text="Costo Total" prefWidth="85"/>
+            </columns>
+        </TableView>
+    </VBox>
+</HBox>

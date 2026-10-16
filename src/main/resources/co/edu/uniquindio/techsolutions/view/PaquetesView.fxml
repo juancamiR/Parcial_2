@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox spacing="16" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="co.edu.uniquindio.techsolutions.viewController.PaquetesViewController"
+      style="-fx-padding: 16; -fx-background-color: #f8fafc;">
+
+    <!-- Panel Izquierdo: Creación y Listado de Paquetes Tecnológicos -->
+    <VBox spacing="12" HBox.hgrow="ALWAYS"
+          style="-fx-background-color: #ffffff; -fx-padding: 16; -fx-background-radius: 8; -fx-border-color: #e2e8f0; -fx-border-radius: 8;">
+        <Label text="Creación de Paquetes Tecnológicos (Patrón Composite)"
+               style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
+
+        <GridPane hgap="10" vgap="8">
+            <columnConstraints>
+                <ColumnConstraints minWidth="110" prefWidth="120"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
+
+            <Label text="Código Paquete:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="txtCodigoPaquete" promptText="Ej: PAQ-001" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Nombre Paquete:" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="txtNombrePaquete" promptText="Ej: Paquete Mantenimiento Integral" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Descripción:" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="txtDescripcionPaquete" promptText="Descripción de la solución integral" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        </GridPane>
+
+        <HBox alignment="CENTER_RIGHT">
+            <Button text="Crear Paquete Tecnológico"
+                    onAction="#onCrearPaquete"
+                    style="-fx-background-color: #0284c7; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 6;"/>
+        </HBox>
+
+        <Separator/>
+
+        <Label text="Paquetes Tecnológicos Registrados (Seleccione uno para configurar sus componentes):"
+               style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+
+        <TableView fx:id="tblPaquetes" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colPaqCodigo" text="Código" prefWidth="80"/>
+                <TableColumn fx:id="colPaqNombre" text="Nombre Paquete" prefWidth="170"/>
+                <TableColumn fx:id="colPaqDescripcion" text="Descripción" prefWidth="190"/>
+                <TableColumn fx:id="colPaqCantidad" text="Elementos" prefWidth="75"/>
+                <TableColumn fx:id="colPaqPresencial" text="Presencial" prefWidth="75"/>
+                <TableColumn fx:id="colPaqCostoTotal" text="Costo Total" prefWidth="100"/>
+            </columns>
+        </TableView>
+    </VBox>
+
+    <!-- Panel Derecho: Agregar / Consultar Elementos de un Paquete (Con validación anticiclos) -->
+    <VBox spacing="12" prefWidth="480"
+          style="-fx-background-color: #ffffff; -fx-padding: 16; -fx-background-radius: 8; -fx-border-color: #e2e8f0; -fx-border-radius: 8;">
+        <Label text="Componentes del Paquete Seleccionado"
+               style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
+
+        <VBox spacing="4" style="-fx-background-color: #f1f5f9; -fx-padding: 10; -fx-background-radius: 6;">
+            <Label text="Paquete Activo:" style="-fx-font-size: 11px; -fx-text-fill: #64748b;"/>
+            <Label fx:id="lblPaqueteSeleccionado" text="Seleccione un paquete de la tabla"
+                   wrapText="true" style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
+        </VBox>
+
+        <Label text="Agregar Servicio Base, Servicio Personalizado u otro Paquete:"
+               style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+        <ComboBox fx:id="cmbElementoDisponible" maxWidth="Infinity"/>
+
+        <HBox spacing="10">
+            <Button text="Agregar al Paquete (Valida Anticiclos)"
+                    onAction="#onAgregarElementoAPaquete"
+                    HBox.hgrow="ALWAYS" maxWidth="Infinity"
+                    style="-fx-background-color: #059669; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 12; -fx-background-radius: 6;"/>
+            <Button text="Retirar Seleccionado"
+                    onAction="#onEliminarElementoDePaquete"
+                    style="-fx-background-color: #dc2626; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 12; -fx-background-radius: 6;"/>
+        </HBox>
+
+        <Separator/>
+
+        <Label text="Estructura de Componentes del Paquete:" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+
+        <TableView fx:id="tblComponentesPaquete" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colCompCodigo" text="Código" prefWidth="75"/>
+                <TableColumn fx:id="colCompNombre" text="Nombre del Componente" prefWidth="170"/>
+                <TableColumn fx:id="colCompTipo" text="Categoría" prefWidth="115"/>
+                <TableColumn fx:id="colCompPresencial" text="Presencial" prefWidth="65"/>
+                <TableColumn fx:id="colCompCosto" text="Costo" prefWidth="85"/>
+            </columns>
+        </TableView>
+
+        <HBox alignment="CENTER_LEFT" spacing="10"
+              style="-fx-background-color: #eff6ff; -fx-padding: 12; -fx-background-radius: 6; -fx-border-color: #bfdbfe; -fx-border-radius: 6;">
+            <Label text="Costo Total Acumulado (Cálculo Recursivo):"
+                   style="-fx-font-weight: bold; -fx-text-fill: #1e3a8a;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="lblCostoTotalPaquete" text="0"
+                   style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1d4ed8;"/>
+        </HBox>
+    </VBox>
+</HBox>

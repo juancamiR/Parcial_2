@@ -46,7 +46,7 @@ public abstract class ServicioFactory {
         return obtenerFactoria(tipo).crearServicio(codigo, nombre, descripcion, atencionPresencial);
     }
 
-    
+
     public abstract Servicio crearServicio(String codigo, String nombre, String descripcion, boolean atencionPresencial);
 
     public Servicio crearServicio(String codigo, String nombre, String descripcion) {
