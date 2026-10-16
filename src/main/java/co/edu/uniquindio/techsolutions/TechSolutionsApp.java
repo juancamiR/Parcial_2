@@ -35,7 +35,7 @@ public class TechSolutionsApp extends Application {
         techSolutions.registrarCliente("1094950222", "Laura Sofía Gómez", "laura@empresa.com");
         techSolutions.registrarCliente("900123456-1", "Inversiones Cafeteras S.A.S.", "contacto@inversiones.co");
 
-        // 4 servicios base iniciales 
+        // 4 servicios base iniciales
         techSolutions.registrarServicio(TipoServicio.MANTENIMIENTO_PREVENTIVO,
                 "SRV-001", "Mantenimiento Preventivo", "Limpieza y diagnóstico preventivo");
         techSolutions.registrarServicio(TipoServicio.MANTENIMIENTO_CORRECTIVO,
