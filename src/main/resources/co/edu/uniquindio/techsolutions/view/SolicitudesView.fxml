@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox spacing="16" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="co.edu.uniquindio.techsolutions.viewController.SolicitudesViewController"
+      style="-fx-padding: 16; -fx-background-color: #f8fafc;">
+
+    <!-- Panel Izquierdo: Construcción de la Solicitud con Builder -->
+    <VBox spacing="10" prefWidth="470"
+          style="-fx-background-color: #ffffff; -fx-padding: 16; -fx-background-radius: 8; -fx-border-color: #e2e8f0; -fx-border-radius: 8;">
+        <Label text="Nueva Solicitud de Servicio (Patrón Builder)"
+               style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
+
+        <Label text="1. Información Obligatoria:" style="-fx-font-weight: bold; -fx-text-fill: #0369a1;"/>
+        <GridPane hgap="10" vgap="8">
+            <columnConstraints>
+                <ColumnConstraints minWidth="125" prefWidth="135"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
+
+            <Label text="Código Solicitud (*):" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="txtCodigoSolicitud" promptText="Ej: SOL-001" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Cliente (*):" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+            <ComboBox fx:id="cmbCliente" maxWidth="Infinity" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Fecha Creación (*):" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+            <DatePicker fx:id="dpFechaCreacion" maxWidth="Infinity" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        </GridPane>
+
+        <Label text="Elementos Contratados (*) — Servicios, Personalizados o Paquetes:"
+               style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+        <HBox spacing="8">
+            <ComboBox fx:id="cmbElementoContratable" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <Button text="+ Agregar" onAction="#onAgregarElementoSolicitud"
+                    style="-fx-background-color: #0284c7; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            <Button text="- Quitar" onAction="#onQuitarElementoSolicitud"
+                    style="-fx-background-color: #dc2626; -fx-text-fill: white; -fx-font-weight: bold;"/>
+        </HBox>
+
+        <TableView fx:id="tblElementosSeleccionados" prefHeight="135" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colSelCodigo" text="Código" prefWidth="75"/>
+                <TableColumn fx:id="colSelNombre" text="Elemento Contratado" prefWidth="195"/>
+                <TableColumn fx:id="colSelPresencial" text="Presencial" prefWidth="70"/>
+                <TableColumn fx:id="colSelCosto" text="Costo" prefWidth="90"/>
+            </columns>
+        </TableView>
+
+        <HBox alignment="CENTER_LEFT" style="-fx-background-color: #f1f5f9; -fx-padding: 6 10; -fx-background-radius: 4;">
+            <Label text="Subtotal Elementos Seleccionados:" style="-fx-font-weight: bold;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="lblSubtotalSeleccionado" text="0" style="-fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
+        </HBox>
+
+        <Separator/>
+
+        <Label text="2. Información Opcional (Flexible mediante Builder):" style="-fx-font-weight: bold; -fx-text-fill: #047857;"/>
+        <GridPane hgap="10" vgap="8">
+            <columnConstraints>
+                <ColumnConstraints minWidth="125" prefWidth="135"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
+
+            <Label text="Fecha Programada:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <DatePicker fx:id="dpFechaProgramada" promptText="Opcional" maxWidth="Infinity" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Nivel Prioridad:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cmbPrioridad" maxWidth="Infinity" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Observaciones:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextArea fx:id="txtObservaciones" promptText="Observaciones técnicas opcionales..." prefRowCount="2"
+                      GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        </GridPane>
+
+        <Button text="Construir y Registrar Solicitud (SolicitudBuilder.build())"
+                maxWidth="Infinity"
+                onAction="#onRegistrarSolicitud"
+                style="-fx-background-color: #059669; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 16; -fx-background-radius: 6;"/>
+    </VBox>
+
+    <!-- Panel Derecho: Solicitudes Registradas -->
+    <VBox spacing="12" HBox.hgrow="ALWAYS"
+          style="-fx-background-color: #ffffff; -fx-padding: 16; -fx-background-radius: 8; -fx-border-color: #e2e8f0; -fx-border-radius: 8;">
+        <Label text="Solicitudes de Servicio Registradas"
+               style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
+
+        <TableView fx:id="tblSolicitudesRegistradas" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colSolCodigo" text="Código" prefWidth="75"/>
+                <TableColumn fx:id="colSolFechaCreacion" text="Creación" prefWidth="85"/>
+                <TableColumn fx:id="colSolCliente" text="Cliente" prefWidth="150"/>
+                <TableColumn fx:id="colSolCantidadElementos" text="Ítems" prefWidth="50"/>
+                <TableColumn fx:id="colSolPrioridad" text="Prioridad" prefWidth="75"/>
+                <TableColumn fx:id="colSolFechaProgramada" text="Programada" prefWidth="90"/>
+                <TableColumn fx:id="colSolPresencial" text="Presencial" prefWidth="85"/>
+                <TableColumn fx:id="colSolEstado" text="Estado" prefWidth="85"/>
+                <TableColumn fx:id="colSolCostoTotal" text="Costo Total" prefWidth="95"/>
+            </columns>
+        </TableView>
+    </VBox>
+</HBox>

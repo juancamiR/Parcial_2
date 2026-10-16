@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox spacing="16" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="co.edu.uniquindio.techsolutions.viewController.ConsultasTecnicosViewController"
+      style="-fx-padding: 16; -fx-background-color: #f8fafc;">
+
+    <!-- Panel Izquierdo: Consulta de Técnicos mediante AdaptadorLegacySupport -->
+    <VBox spacing="14" prefWidth="420"
+          style="-fx-background-color: #ffffff; -fx-padding: 16; -fx-background-radius: 8; -fx-border-color: #e2e8f0; -fx-border-radius: 8;">
+        <Label text="Consulta de Técnicos (Patrón Adapter)"
+               style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
+
+        <Label text="Integración con plataforma externa LegacySupport mediante AdaptadorLegacySupport:"
+               wrapText="true" style="-fx-text-fill: #475569; -fx-font-size: 12px;"/>
+
+        <Label text="Seleccione la Especialidad Requerida:" style="-fx-font-weight: bold;"/>
+        <ComboBox fx:id="cmbEspecialidad" maxWidth="Infinity"/>
+
+        <Button text="Consultar Disponibilidad en LegacySupport"
+                maxWidth="Infinity"
+                onAction="#onConsultarDisponibilidad"
+                style="-fx-background-color: #0284c7; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 9 16; -fx-background-radius: 6;"/>
+
+        <GridPane hgap="10" vgap="8"
+                  style="-fx-background-color: #f8fafc; -fx-padding: 14; -fx-background-radius: 6; -fx-border-color: #cbd5e1; -fx-border-radius: 6;">
+            <columnConstraints>
+                <ColumnConstraints minWidth="155"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
+
+            <Label text="ID Técnico:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+            <Label fx:id="lblIdTecnico" text="-" GridPane.rowIndex="0" GridPane.columnIndex="1" style="-fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
+
+            <Label text="Especialidad:" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+            <Label fx:id="lblEspecialidadConsultada" text="-" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Estado Disponibilidad:" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+            <Label fx:id="lblEstadoDisponibilidad" text="-" GridPane.rowIndex="2" GridPane.columnIndex="1" style="-fx-font-weight: bold; -fx-text-fill: #0369a1;"/>
+
+            <Label text="Costo Desplazamiento:" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+            <Label fx:id="lblCostoDesplazamiento" text="0" GridPane.rowIndex="3" GridPane.columnIndex="1" style="-fx-font-weight: bold; -fx-text-fill: #047857;"/>
+        </GridPane>
+
+        <Separator/>
+
+        <Label text="Liquidación y Confirmación de Solicitud"
+               style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
+
+        <GridPane hgap="10" vgap="8"
+                  style="-fx-background-color: #ecfdf5; -fx-padding: 14; -fx-background-radius: 6; -fx-border-color: #a7f3d0; -fx-border-radius: 6;">
+            <columnConstraints>
+                <ColumnConstraints minWidth="165"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
+
+            <Label text="Solicitud Seleccionada:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <Label fx:id="lblDetalleSolicitud" text="Seleccione una solicitud" wrapText="true"
+                   GridPane.rowIndex="0" GridPane.columnIndex="1" style="-fx-font-weight: bold;"/>
+
+            <Label text="¿Atención Presencial?:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <Label fx:id="lblRequierePresencialSolicitud" text="-" GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-font-weight: bold;"/>
+
+            <Label text="Subtotal Servicios/Paquetes:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <Label fx:id="lblSubtotalSolicitud" text="0" GridPane.rowIndex="2" GridPane.columnIndex="1" style="-fx-font-weight: bold;"/>
+
+            <Label text="Desplazamiento Técnico:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <Label fx:id="lblDesplazamientoSolicitud" text="0" GridPane.rowIndex="3" GridPane.columnIndex="1" style="-fx-font-weight: bold; -fx-text-fill: #0369a1;"/>
+
+            <Label text="Costo Total Definitivo:" GridPane.rowIndex="4" GridPane.columnIndex="0" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+            <Label fx:id="lblTotalDefinitivoSolicitud" text="0" GridPane.rowIndex="4" GridPane.columnIndex="1"
+                   style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #047857;"/>
+        </GridPane>
+
+        <Button text="Verificar Técnico y Confirmar Solicitud Seleccionada"
+                maxWidth="Infinity"
+                onAction="#onConfirmarSolicitud"
+                style="-fx-background-color: #059669; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 16; -fx-background-radius: 6;"/>
+    </VBox>
+
+    <!-- Panel Derecho: Tabla de Solicitudes para Confirmar -->
+    <VBox spacing="12" HBox.hgrow="ALWAYS"
+          style="-fx-background-color: #ffffff; -fx-padding: 16; -fx-background-radius: 8; -fx-border-color: #e2e8f0; -fx-border-radius: 8;">
+        <Label text="Solicitudes para Verificación Técnica y Confirmación"
+               style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
+
+        <Label text="Nota: Si la solicitud incluye Atención a Domicilio (directa o en un paquete), se valida la disponibilidad del técnico en la especialidad seleccionada y el desplazamiento se suma una única vez."
+               wrapText="true" style="-fx-text-fill: #475569; -fx-font-size: 12px;"/>
+
+        <TableView fx:id="tblSolicitudesConfirmacion" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colConfCodigo" text="Código" prefWidth="75"/>
+                <TableColumn fx:id="colConfCliente" text="Cliente" prefWidth="145"/>
+                <TableColumn fx:id="colConfPresencial" text="Presencial" prefWidth="85"/>
+                <TableColumn fx:id="colConfEstado" text="Estado" prefWidth="90"/>
+                <TableColumn fx:id="colConfTecnico" text="Técnico Asignado" prefWidth="135"/>
+                <TableColumn fx:id="colConfSubtotal" text="Subtotal Serv." prefWidth="95"/>
+                <TableColumn fx:id="colConfDesplazamiento" text="Desplazamiento" prefWidth="95"/>
+                <TableColumn fx:id="colConfCostoTotal" text="Total Definitivo" prefWidth="105"/>
+            </columns>
+        </TableView>
+    </VBox>
+</HBox>
