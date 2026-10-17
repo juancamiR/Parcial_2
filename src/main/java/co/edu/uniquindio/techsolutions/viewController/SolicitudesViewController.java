@@ -77,6 +77,9 @@ public class SolicitudesViewController {
 
     private final ObservableList<IComponenteServicio> elementosSeleccionados = FXCollections.observableArrayList();
 
+    /**
+     * metodo que inicializa los componentes de la vista de solicitudes
+     */
     @FXML
     public void initialize() {
         dpFechaCreacion.setValue(LocalDate.now());
@@ -103,6 +106,9 @@ public class SolicitudesViewController {
         refrescarDatos();
     }
 
+    /**
+     * metodo que permite refrescar los combos y la tabla de solicitudes registradas
+     */
     public void refrescarDatos() {
         cmbCliente.setItems(FXCollections.observableArrayList(solicitudesController.obtenerClientes()));
         if (!cmbCliente.getItems().isEmpty() && cmbCliente.getSelectionModel().isEmpty()) {
@@ -119,6 +125,9 @@ public class SolicitudesViewController {
         actualizarSubtotal();
     }
 
+    /**
+     * metodo que permite agregar un elemento contratable a la solicitud en construccion
+     */
     @FXML
     public void onAgregarElementoSolicitud() {
         IComponenteServicio elem = cmbElementoContratable.getValue();
@@ -128,6 +137,9 @@ public class SolicitudesViewController {
         }
     }
 
+    /**
+     * metodo que permite quitar un elemento de la solicitud en construccion
+     */
     @FXML
     public void onQuitarElementoSolicitud() {
         IComponenteServicio elem = tblElementosSeleccionados.getSelectionModel().getSelectedItem();
@@ -137,6 +149,9 @@ public class SolicitudesViewController {
         }
     }
 
+    /**
+     * metodo que permite calcular y actualizar el subtotal de los elementos seleccionados
+     */
     private void actualizarSubtotal() {
         double subtotal = 0;
         for (IComponenteServicio elem : elementosSeleccionados) {
@@ -145,6 +160,9 @@ public class SolicitudesViewController {
         lblSubtotalSeleccionado.setText("$" + subtotal);
     }
 
+    /**
+     * metodo que permite registrar la solicitud de servicio con los datos ingresados
+     */
     @FXML
     public void onRegistrarSolicitud() {
         try {
@@ -173,6 +191,12 @@ public class SolicitudesViewController {
         }
     }
 
+    /**
+     * metodo que permite mostrar una alerta en pantalla
+     * @param tipo
+     * @param titulo
+     * @param mensaje
+     */
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);

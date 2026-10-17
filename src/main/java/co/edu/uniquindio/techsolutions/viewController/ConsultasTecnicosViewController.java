@@ -58,6 +58,9 @@ public class ConsultasTecnicosViewController {
     @FXML
     private Label lblTotalDefinitivoSolicitud;
 
+    /**
+     * metodo que inicializa los componentes de la vista de consultas de tecnicos y confirmacion
+     */
     @FXML
     public void initialize() {
         cmbEspecialidad.setItems(FXCollections.observableArrayList(TipoEspecialidad.values()));
@@ -80,12 +83,18 @@ public class ConsultasTecnicosViewController {
         refrescarDatos();
     }
 
+    /**
+     * metodo que permite refrescar la tabla de solicitudes para confirmacion
+     */
     public void refrescarDatos() {
         tblSolicitudesConfirmacion.setItems(FXCollections.observableArrayList(consultasTecnicosController.obtenerSolicitudes()));
         tblSolicitudesConfirmacion.refresh();
         mostrarDetalleSolicitud();
     }
 
+    /**
+     * metodo que permite consultar la disponibilidad de un tecnico segun la especialidad seleccionada
+     */
     @FXML
     public void onConsultarDisponibilidad() {
         try {
@@ -99,6 +108,9 @@ public class ConsultasTecnicosViewController {
         }
     }
 
+    /**
+     * metodo que permite mostrar el resumen de costos de la solicitud seleccionada
+     */
     private void mostrarDetalleSolicitud() {
         SolicitudServicio s = tblSolicitudesConfirmacion.getSelectionModel().getSelectedItem();
         if (s == null) {
@@ -116,6 +128,9 @@ public class ConsultasTecnicosViewController {
         lblTotalDefinitivoSolicitud.setText("$" + s.calcularCostoTotal());
     }
 
+    /**
+     * metodo que permite confirmar la solicitud seleccionada validando la disponibilidad tecnica
+     */
     @FXML
     public void onConfirmarSolicitud() {
         try {
@@ -136,6 +151,12 @@ public class ConsultasTecnicosViewController {
         }
     }
 
+    /**
+     * metodo que permite mostrar una alerta en pantalla
+     * @param tipo
+     * @param titulo
+     * @param mensaje
+     */
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);

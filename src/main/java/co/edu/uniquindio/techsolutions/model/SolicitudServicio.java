@@ -22,6 +22,16 @@ public class SolicitudServicio {
     private InfoTecnico tecnicoAsignado;
     private double costoDesplazamientoAplicado;
 
+    /**
+     * constructor de la clase SolicitudServicio
+     * @param codigo
+     * @param fechaCreacion
+     * @param cliente
+     * @param elementosContratados
+     * @param fechaProgramada
+     * @param observacionesTecnicas
+     * @param nivelPrioridad
+     */
     public SolicitudServicio(
             String codigo,
             LocalDate fechaCreacion,
@@ -44,6 +54,10 @@ public class SolicitudServicio {
         this.costoDesplazamientoAplicado = 0.0;
     }
 
+    /**
+     * metodo que verifica si alguno de los servicios o paquetes requiere atencion presencial
+     * @return
+     */
     public boolean requiereAtencionPresencial() {
         for (IComponenteServicio elem : elementosContratados) {
             if (elem.requiereAtencionPresencial()) {
@@ -53,6 +67,10 @@ public class SolicitudServicio {
         return false;
     }
 
+    /**
+     * metodo que permite calcular el subtotal de los servicios y paquetes contratados
+     * @return
+     */
     public double calcularSubtotalServicios() {
         double subtotal = 0;
         for (IComponenteServicio elem : elementosContratados) {
@@ -61,10 +79,18 @@ public class SolicitudServicio {
         return subtotal;
     }
 
+    /**
+     * metodo que permite calcular el costo total de la solicitud sumando servicios y costo de desplazamiento
+     * @return
+     */
     public double calcularCostoTotal() {
         return calcularSubtotalServicios() + costoDesplazamientoAplicado;
     }
 
+    /**
+     * metodo que permite confirmar la solicitud asignando el tecnico y aplicando el desplazamiento
+     * @param infoTecnico
+     */
     public void confirmar(InfoTecnico infoTecnico) {
         if (confirmada) {
             throw new IllegalStateException("La solicitud ya fue confirmada.");

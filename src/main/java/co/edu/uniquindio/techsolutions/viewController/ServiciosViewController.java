@@ -73,6 +73,9 @@ public class ServiciosViewController {
     @FXML
     private TableColumn<IComponenteServicio, String> colPersCostoTotal;
 
+    /**
+     * metodo que inicializa los componentes de la vista de servicios
+     */
     @FXML
     public void initialize() {
         cmbTipoServicio.setItems(FXCollections.observableArrayList(TipoServicio.values()));
@@ -100,6 +103,9 @@ public class ServiciosViewController {
         refrescarDatos();
     }
 
+    /**
+     * metodo que permite refrescar los datos de las tablas de servicios
+     */
     public void refrescarDatos() {
         tblCatalogoServicios.setItems(FXCollections.observableArrayList(serviciosController.obtenerCatalogoServicios()));
         if (!tblCatalogoServicios.getItems().isEmpty() && tblCatalogoServicios.getSelectionModel().isEmpty()) {
@@ -109,6 +115,9 @@ public class ServiciosViewController {
         actualizarPrevisualizacion();
     }
 
+    /**
+     * metodo que permite registrar un nuevo servicio desde el formulario
+     */
     @FXML
     public void onRegistrarServicio() {
         try {
@@ -133,6 +142,9 @@ public class ServiciosViewController {
         }
     }
 
+    /**
+     * metodo que permite actualizar la previsualizacion de costos y complementos seleccionados
+     */
     private void actualizarPrevisualizacion() {
         Servicio base = tblCatalogoServicios.getSelectionModel().getSelectedItem();
         if (base == null) {
@@ -161,6 +173,9 @@ public class ServiciosViewController {
         lblRequierePresencial.setText(previsualizado.requiereAtencionPresencial() ? "Sí" : "No");
     }
 
+    /**
+     * metodo que permite guardar un servicio personalizado con los complementos seleccionados
+     */
     @FXML
     public void onGuardarServicioPersonalizado() {
         try {
@@ -184,6 +199,12 @@ public class ServiciosViewController {
         }
     }
 
+    /**
+     * metodo que permite mostrar una alerta en pantalla
+     * @param tipo
+     * @param titulo
+     * @param mensaje
+     */
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);

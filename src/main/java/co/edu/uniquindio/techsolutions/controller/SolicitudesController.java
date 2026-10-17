@@ -14,18 +14,41 @@ public class SolicitudesController {
 
     private final TechSolutions techSolutions = TechSolutions.getInstance();
 
+    /**
+     * metodo que retorna la lista de clientes registrados
+     * @return
+     */
     public List<Cliente> obtenerClientes() {
         return techSolutions.obtenerClientes();
     }
 
+    /**
+     * metodo que retorna la lista de elementos contratables disponibles
+     * @return
+     */
     public List<IComponenteServicio> obtenerElementosContratables() {
         return techSolutions.obtenerElementosContratables();
     }
 
+    /**
+     * metodo que retorna la lista de solicitudes registradas
+     * @return
+     */
     public List<SolicitudServicio> obtenerSolicitudes() {
         return techSolutions.obtenerSolicitudes();
     }
 
+    /**
+     * metodo que permite registrar una solicitud construyendola con el Builder y delegando en el modelo
+     * @param codigo
+     * @param fechaCreacion
+     * @param cliente
+     * @param elementosContratados
+     * @param fechaProgramada
+     * @param observacionesTecnicas
+     * @param nivelPrioridad
+     * @return
+     */
     public SolicitudServicio registrarSolicitud(
             String codigo,
             LocalDate fechaCreacion,

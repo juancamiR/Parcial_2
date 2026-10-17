@@ -7,6 +7,13 @@ public class InfoTecnico {
     private boolean disponible;
     private double costoDesplazamiento;
 
+    /**
+     * constructor de la clase InfoTecnico
+     * @param idTecnico
+     * @param especialidad
+     * @param disponible
+     * @param costoDesplazamiento
+     */
     public InfoTecnico(String idTecnico, String especialidad, boolean disponible, double costoDesplazamiento) {
         this.idTecnico = idTecnico;
         this.especialidad = especialidad;

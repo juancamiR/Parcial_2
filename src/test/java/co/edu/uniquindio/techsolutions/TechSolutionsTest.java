@@ -31,6 +31,9 @@ class TechSolutionsTest {
         TechSolutionsApp.cargarDatosIniciales();
     }
 
+    /**
+     * metodo que permite probar la creacion y personalizacion de servicios y la inmutabilidad del catalogo
+     */
     @Test
     @DisplayName("F1. Gestión y personalización de servicios tecnológicos (Funcionalidad principal requerida)")
     void testF1_GestionYPersonalizacionServicios() {
@@ -40,7 +43,7 @@ class TechSolutionsTest {
         assertNotNull(nuevo);
         assertEquals(180000.0, nuevo.calcularCosto());
 
-        // Personalizar un servicio con atención prioritaria y atención a domicilio
+        // Personalizar un servicio con atención prioritaria (+35.000) y atención a domicilio (+25.000)
         IComponenteServicio personalizado = techSolutions.guardarServicioPersonalizado(
                 nuevo, true, false, true);
 
@@ -53,6 +56,9 @@ class TechSolutionsTest {
         assertFalse(nuevo.requiereAtencionPresencial());
     }
 
+    /**
+     * metodo que permite probar la creacion de paquetes tecnologicos y la prevencion de ciclos
+     */
     @Test
     @DisplayName("F2. Configuración de paquetes tecnológicos (Funcionalidad principal requerida)")
     void testF2_ConfiguracionPaquetesTecnologicos() {
@@ -66,17 +72,20 @@ class TechSolutionsTest {
         assertEquals(2, paq.getElementos().size());
         assertEquals(200000.0, paq.calcularCosto());
 
-        // prueba que impida meter un paquete dentro de sí mismo
+        // Valida que impida meter un paquete dentro de sí mismo
         assertThrows(IllegalArgumentException.class, () -> paq.agregarElemento(paq));
     }
 
+    /**
+     * metodo que permite probar el registro de solicitudes usando el patron Builder
+     */
     @Test
     @DisplayName("F3. Registro de solicitudes de servicios (Funcionalidad principal requerida)")
     void testF3_RegistroSolicitudesServicios() {
         Cliente cliente = techSolutions.obtenerClientes().get(0);
         Servicio servicio = techSolutions.buscarServicioCatalogo("SRV-001");
 
-        // solicitud con datos obligatorios y opcionales usando Builder
+        // Registrar solicitud con datos obligatorios y opcionales usando Builder
         SolicitudServicio solicitud = new SolicitudBuilder()
                 .conCodigo("SOL-01")
                 .conCliente(cliente)
@@ -95,6 +104,9 @@ class TechSolutionsTest {
         assertEquals(80000.0, guardada.calcularCostoTotal());
     }
 
+    /**
+     * metodo que permite probar la consulta de tecnicos y calculo de costos con atencion presencial
+     */
     @Test
     @DisplayName("F4. Consulta de técnicos y cálculo del costo de las solicitudes (Funcionalidad principal requerida)")
     void testF4_ConsultaTecnicosYCalculoCostoSolicitudes() {
@@ -103,7 +115,7 @@ class TechSolutionsTest {
         assertTrue(tec.isDisponible());
         assertEquals(30000.0, tec.getCostoDesplazamiento());
 
-        // Solicitud presencial
+        // Solicitud presencial (con atención a domicilio)
         Cliente cliente = techSolutions.obtenerClientes().get(0);
         Servicio base = techSolutions.buscarServicioCatalogo("SRV-001"); // $80.000
         IComponenteServicio conDomicilio = techSolutions.guardarServicioPersonalizado(
@@ -116,7 +128,7 @@ class TechSolutionsTest {
                 .build();
         techSolutions.registrarSolicitud(sol);
 
-        // Si la especialidad no tiene técnicos disponibles no deja confirmar
+        // Si la especialidad no tiene técnicos disponibles (SEGURIDAD), no deja confirmar
         assertThrows(IllegalStateException.class,
                 () -> techSolutions.confirmarSolicitud("SOL-02", TipoEspecialidad.SEGURIDAD));
 
@@ -126,6 +138,9 @@ class TechSolutionsTest {
         assertEquals(135000.0, confirmada.calcularCostoTotal()); // 105.000 + 30.000
     }
 
+    /**
+     * metodo que permite probar la consulta y busqueda de clientes precargados
+     */
     @Test
     @DisplayName("F5. Listar clientes precargados: Visualizar y seleccionar los clientes registrados por defecto")
     void testF5_ListarClientesPrecargados() {
@@ -148,6 +163,9 @@ class TechSolutionsTest {
         assertEquals("Inversiones Cafeteras S.A.S.", c3.getNombreCompleto());
     }
 
+    /**
+     * metodo que permite probar la consulta del catalogo base y sus costos iniciales
+     */
     @Test
     @DisplayName("F6. Consultar catálogo base: Visualizar los cuatro tipos de servicios iniciales con sus costos definidos")
     void testF6_ConsultarCatalogoBase() {
@@ -173,6 +191,9 @@ class TechSolutionsTest {
         assertEquals(150000.0, rec.calcularCosto());
     }
 
+    /**
+     * metodo que permite probar la jerarquia recursiva y consulta de componentes de un paquete
+     */
     @Test
     @DisplayName("F7. Consultar componentes de paquetes: Visualizar los elementos que conforman un paquete guardado")
     void testF7_ConsultarComponentesDePaquetes() {
@@ -184,7 +205,7 @@ class TechSolutionsTest {
         subPaquete.agregarElemento(s1);
         subPaquete.agregarElemento(s2);
 
-        // Paquete padre
+        // Paquete padre que contiene al subpaquete y otro servicio
         Servicio s3 = techSolutions.buscarServicioCatalogo("SRV-003"); // $180.000
         PaqueteTecnologico paquetePadre = techSolutions.crearPaquete("PAQ-PADRE", "Paquete Corporativo", "Integral");
         paquetePadre.agregarElemento(subPaquete);
@@ -196,10 +217,13 @@ class TechSolutionsTest {
         assertTrue(componentes.contains(subPaquete));
         assertTrue(componentes.contains(s3));
 
-        //  calcula todos los niveles: (80.000 + 120.000) + 180.000 = 380.000
+        // El costo total calcula recursivamente todos los niveles: (80.000 + 120.000) + 180.000 = 380.000
         assertEquals(380000.0, paquetePadre.calcularCosto());
     }
 
+    /**
+     * metodo que permite probar la busqueda de una solicitud registrada mediante su codigo unico
+     */
     @Test
     @DisplayName("F8. Consultar solicitudes registradas: Buscar una solicitud mediante su código único")
     void testF8_ConsultarSolicitudesRegistradas() {

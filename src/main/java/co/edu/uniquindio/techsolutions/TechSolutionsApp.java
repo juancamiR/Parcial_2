@@ -11,6 +11,11 @@ import java.io.IOException;
 
 public class TechSolutionsApp extends Application {
 
+    /**
+     * metodo que inicia la ventana principal de la aplicacion JavaFX
+     * @param stage
+     * @throws IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
         cargarDatosIniciales();
@@ -24,6 +29,9 @@ public class TechSolutionsApp extends Application {
         stage.show();
     }
 
+    /**
+     * metodo estatico que permite precargar los clientes y el catalogo base de servicios
+     */
     public static void cargarDatosIniciales() {
         TechSolutions techSolutions = TechSolutions.getInstance();
         if (!techSolutions.obtenerClientes().isEmpty()) {
@@ -35,7 +43,7 @@ public class TechSolutionsApp extends Application {
         techSolutions.registrarCliente("1094950222", "Laura Sofía Gómez", "laura@empresa.com");
         techSolutions.registrarCliente("900123456-1", "Inversiones Cafeteras S.A.S.", "contacto@inversiones.co");
 
-        // 4 servicios base iniciales
+        // 4 servicios base iniciales usando TipoServicio y ServicioFactory internamente
         techSolutions.registrarServicio(TipoServicio.MANTENIMIENTO_PREVENTIVO,
                 "SRV-001", "Mantenimiento Preventivo", "Limpieza y diagnóstico preventivo");
         techSolutions.registrarServicio(TipoServicio.MANTENIMIENTO_CORRECTIVO,

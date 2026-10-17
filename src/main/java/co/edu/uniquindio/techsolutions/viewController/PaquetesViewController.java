@@ -58,6 +58,9 @@ public class PaquetesViewController {
     @FXML
     private Label lblCostoTotalPaquete;
 
+    /**
+     * metodo que inicializa los componentes de la vista de paquetes
+     */
     @FXML
     public void initialize() {
         colPaqCodigo.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getCodigo()));
@@ -78,6 +81,9 @@ public class PaquetesViewController {
         refrescarDatos();
     }
 
+    /**
+     * metodo que permite refrescar las tablas y listas de paquetes y elementos disponibles
+     */
     public void refrescarDatos() {
         PaqueteTecnologico seleccionado = tblPaquetes.getSelectionModel().getSelectedItem();
         tblPaquetes.setItems(FXCollections.observableArrayList(paquetesController.obtenerPaquetes()));
@@ -95,6 +101,9 @@ public class PaquetesViewController {
         mostrarComponentesPaquete();
     }
 
+    /**
+     * metodo que permite mostrar los elementos contenidos dentro del paquete seleccionado
+     */
     private void mostrarComponentesPaquete() {
         PaqueteTecnologico paquete = tblPaquetes.getSelectionModel().getSelectedItem();
         if (paquete == null) {
@@ -109,6 +118,9 @@ public class PaquetesViewController {
         lblCostoTotalPaquete.setText("$" + paquete.calcularCosto());
     }
 
+    /**
+     * metodo que permite crear un nuevo paquete tecnologico desde el formulario
+     */
     @FXML
     public void onCrearPaquete() {
         try {
@@ -128,6 +140,9 @@ public class PaquetesViewController {
         }
     }
 
+    /**
+     * metodo que permite agregar un elemento disponible al paquete seleccionado
+     */
     @FXML
     public void onAgregarElementoAPaquete() {
         try {
@@ -143,6 +158,9 @@ public class PaquetesViewController {
         }
     }
 
+    /**
+     * metodo que permite eliminar un elemento del paquete seleccionado
+     */
     @FXML
     public void onEliminarElementoDePaquete() {
         PaqueteTecnologico paquete = tblPaquetes.getSelectionModel().getSelectedItem();
@@ -153,6 +171,12 @@ public class PaquetesViewController {
         }
     }
 
+    /**
+     * metodo que permite mostrar una alerta en pantalla
+     * @param tipo
+     * @param titulo
+     * @param mensaje
+     */
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);

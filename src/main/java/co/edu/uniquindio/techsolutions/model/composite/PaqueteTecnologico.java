@@ -11,6 +11,12 @@ public class PaqueteTecnologico implements IComponenteServicio {
     private String descripcion;
     private List<IComponenteServicio> elementos;
 
+    /**
+     * constructor de la clase PaqueteTecnologico
+     * @param codigo
+     * @param nombre
+     * @param descripcion
+     */
     public PaqueteTecnologico(String codigo, String nombre, String descripcion) {
         if (codigo == null || codigo.isBlank()) {
             throw new IllegalArgumentException("El código del paquete es obligatorio.");
@@ -27,6 +33,10 @@ public class PaqueteTecnologico implements IComponenteServicio {
         this.elementos = new ArrayList<>();
     }
 
+    /**
+     * metodo que permite agregar un elemento al paquete validando que no existan referencias circulares
+     * @param elem
+     */
     public void agregarElemento(IComponenteServicio elem) {
         if (elem == null) {
             throw new IllegalArgumentException("El elemento no puede ser nulo.");
@@ -41,6 +51,11 @@ public class PaqueteTecnologico implements IComponenteServicio {
         this.elementos.add(elem);
     }
 
+    /**
+     * metodo recursivo para verificar si el paquete contiene a otro paquete directa o indirectamente
+     * @param destino
+     * @return
+     */
     public boolean contienePaquete(PaqueteTecnologico destino) {
         for (IComponenteServicio hijo : elementos) {
             if (hijo instanceof PaqueteTecnologico subPaquete) {
@@ -52,6 +67,10 @@ public class PaqueteTecnologico implements IComponenteServicio {
         return false;
     }
 
+    /**
+     * metodo que permite eliminar un elemento del paquete
+     * @param elem
+     */
     public void eliminarElemento(IComponenteServicio elem) {
         this.elementos.remove(elem);
     }
@@ -74,6 +93,10 @@ public class PaqueteTecnologico implements IComponenteServicio {
         return descripcion;
     }
 
+    /**
+     * metodo que calcula recursivamente el costo total de los elementos del paquete
+     * @return
+     */
     @Override
     public double calcularCosto() {
         double total = 0;
@@ -83,6 +106,10 @@ public class PaqueteTecnologico implements IComponenteServicio {
         return total;
     }
 
+    /**
+     * metodo que verifica si alguno de los componentes del paquete requiere atencion presencial
+     * @return
+     */
     @Override
     public boolean requiereAtencionPresencial() {
         for (IComponenteServicio elem : elementos) {

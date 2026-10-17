@@ -6,6 +6,12 @@ public class Cliente {
     private String nombreCompleto;
     private String correo;
 
+    /**
+     * constructor de la clase cliente
+     * @param documento
+     * @param nombreCompleto
+     * @param correo
+     */
     public Cliente(String documento, String nombreCompleto, String correo) {
         if (documento == null || documento.isBlank()) {
             throw new IllegalArgumentException("El documento es obligatorio.");

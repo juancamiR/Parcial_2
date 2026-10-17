@@ -10,10 +10,25 @@ public abstract class Servicio implements IComponenteServicio {
     protected double costoBase;
     protected boolean atencionPresencial;
 
+    /**
+     * constructor de la clase servicio
+     * @param codigo
+     * @param nombre
+     * @param descripcion
+     * @param costoBase
+     */
     public Servicio(String codigo, String nombre, String descripcion, double costoBase) {
         this(codigo, nombre, descripcion, costoBase, false);
     }
 
+    /**
+     * constructor de la clase servicio con atencion presencial
+     * @param codigo
+     * @param nombre
+     * @param descripcion
+     * @param costoBase
+     * @param atencionPresencial
+     */
     public Servicio(String codigo, String nombre, String descripcion, double costoBase, boolean atencionPresencial) {
         if (codigo == null || codigo.isBlank()) {
             throw new IllegalArgumentException("El código del servicio es obligatorio.");
@@ -53,11 +68,19 @@ public abstract class Servicio implements IComponenteServicio {
         this.atencionPresencial = atencionPresencial;
     }
 
+    /**
+     * metodo que retorna el costo base del servicio
+     * @return
+     */
     @Override
     public double calcularCosto() {
         return costoBase;
     }
 
+    /**
+     * metodo que indica si el servicio requiere atencion presencial
+     * @return
+     */
     @Override
     public boolean requiereAtencionPresencial() {
         return atencionPresencial;

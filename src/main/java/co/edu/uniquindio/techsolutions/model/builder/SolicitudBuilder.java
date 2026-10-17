@@ -20,21 +20,41 @@ public class SolicitudBuilder {
     private String observacionesTecnicas;
     private NivelPrioridad nivelPrioridad;
 
+    /**
+     * metodo para asignar el codigo de la solicitud
+     * @param codigo
+     * @return
+     */
     public SolicitudBuilder conCodigo(String codigo) {
         this.codigo = codigo;
         return this;
     }
 
+    /**
+     * metodo para asignar la fecha de creacion de la solicitud
+     * @param fechaCreacion
+     * @return
+     */
     public SolicitudBuilder conFechaCreacion(LocalDate fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
         return this;
     }
 
+    /**
+     * metodo para asignar el cliente de la solicitud
+     * @param cliente
+     * @return
+     */
     public SolicitudBuilder conCliente(Cliente cliente) {
         this.cliente = cliente;
         return this;
     }
 
+    /**
+     * metodo para asignar la lista de elementos contratados
+     * @param elementos
+     * @return
+     */
     public SolicitudBuilder conElementosContratados(List<IComponenteServicio> elementos) {
         this.elementosContratados.clear();
         if (elementos != null) {
@@ -43,6 +63,11 @@ public class SolicitudBuilder {
         return this;
     }
 
+    /**
+     * metodo que permite agregar un servicio o paquete a la solicitud
+     * @param elemento
+     * @return
+     */
     public SolicitudBuilder agregarElemento(IComponenteServicio elemento) {
         if (elemento == null) {
             throw new IllegalArgumentException("El elemento no puede ser nulo.");
@@ -51,21 +76,40 @@ public class SolicitudBuilder {
         return this;
     }
 
+    /**
+     * metodo para asignar la fecha programada de atencion
+     * @param fechaProgramada
+     * @return
+     */
     public SolicitudBuilder conFechaProgramada(LocalDate fechaProgramada) {
         this.fechaProgramada = fechaProgramada;
         return this;
     }
 
+    /**
+     * metodo para asignar las observaciones tecnicas
+     * @param observacionesTecnicas
+     * @return
+     */
     public SolicitudBuilder conObservacionesTecnicas(String observacionesTecnicas) {
         this.observacionesTecnicas = observacionesTecnicas;
         return this;
     }
 
+    /**
+     * metodo para asignar el nivel de prioridad
+     * @param nivelPrioridad
+     * @return
+     */
     public SolicitudBuilder conNivelPrioridad(NivelPrioridad nivelPrioridad) {
         this.nivelPrioridad = nivelPrioridad;
         return this;
     }
 
+    /**
+     * metodo que construye y valida la instancia final de SolicitudServicio
+     * @return
+     */
     public SolicitudServicio build() {
         if (codigo == null || codigo.isBlank()) {
             throw new IllegalArgumentException("El código de la solicitud es obligatorio.");

@@ -13,6 +13,11 @@ public class SolicitudService {
 
     private final List<SolicitudServicio> solicitudes = new ArrayList<>();
 
+    /**
+     * metodo que permite registrar una nueva solicitud validando que no este duplicada
+     * @param solicitud
+     * @return
+     */
     public SolicitudServicio registrarSolicitud(SolicitudServicio solicitud) {
         if (solicitud == null) {
             throw new IllegalArgumentException("La solicitud no puede ser nula.");
@@ -24,6 +29,11 @@ public class SolicitudService {
         return solicitud;
     }
 
+    /**
+     * metodo que permite buscar una solicitud por su codigo unico
+     * @param codigo
+     * @return
+     */
     public SolicitudServicio buscarSolicitud(String codigo) {
         if (codigo == null) return null;
         for (SolicitudServicio s : solicitudes) {
@@ -34,10 +44,21 @@ public class SolicitudService {
         return null;
     }
 
+    /**
+     * metodo que retorna la lista inmutable de solicitudes registradas
+     * @return
+     */
     public List<SolicitudServicio> obtenerSolicitudes() {
         return Collections.unmodifiableList(solicitudes);
     }
 
+    /**
+     * metodo que confirma una solicitud validando la disponibilidad del tecnico si requiere atencion presencial
+     * @param codigoSolicitud
+     * @param especialidad
+     * @param proveedorTecnico
+     * @return
+     */
     public SolicitudServicio confirmarSolicitud(String codigoSolicitud, TipoEspecialidad especialidad, IProveedorTecnico proveedorTecnico) {
         SolicitudServicio solicitud = buscarSolicitud(codigoSolicitud);
         if (solicitud == null) {
@@ -63,6 +84,9 @@ public class SolicitudService {
         return solicitud;
     }
 
+    /**
+     * metodo para limpiar la lista de solicitudes
+     */
     public void limpiar() {
         solicitudes.clear();
     }

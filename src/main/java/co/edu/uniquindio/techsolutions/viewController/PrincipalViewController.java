@@ -20,6 +20,9 @@ public class PrincipalViewController {
     @FXML
     private ConsultasTecnicosViewController consultasTecnicosViewController;
 
+    /**
+     * metodo que inicializa el contenedor principal de pestañas
+     */
     @FXML
     public void initialize() {
         if (tabPanePrincipal != null) {
@@ -29,6 +32,9 @@ public class PrincipalViewController {
         }
     }
 
+    /**
+     * metodo que permite refrescar los datos de todas las subvistas al cambiar de pestaña
+     */
     public void refrescarTodasLasVistas() {
         if (serviciosViewController != null) {
             serviciosViewController.refrescarDatos();

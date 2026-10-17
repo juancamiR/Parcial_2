@@ -6,14 +6,26 @@ public class AdaptadorLegacySupport implements IProveedorTecnico {
 
     private LegacySupport legacySupport;
 
+    /**
+     * Constructor por defecto de la clase AdaptadorLegacySupport
+     */
     public AdaptadorLegacySupport() {
         this.legacySupport = new LegacySupport();
     }
 
+    /**
+     * Constructor con inyeccion de dependencia de LegacySupport
+     * @param legacySupport
+     */
     public AdaptadorLegacySupport(LegacySupport legacySupport) {
         this.legacySupport = legacySupport;
     }
 
+    /**
+     * Metodo que adapta la consulta de tecnicos traduciendo el nombre de la especialidad al formato de LegacySupport
+     * @param nombreEspecialidad
+     * @return
+     */
     @Override
     public InfoTecnico consultarDisponibilidad(String nombreEspecialidad) {
         if (nombreEspecialidad == null || nombreEspecialidad.isBlank()) {
